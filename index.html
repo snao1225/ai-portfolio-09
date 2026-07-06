@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI開発ポートフォリオ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF7A3D;
+      --primary-dark: #E86520;
+      --secondary: #7C3AED;
+      --cta: #EC4899;
+      --cta-dark: #DB2777;
+      --bg: #FFF8F2;
+      --bg-hero: #FFF3EA;
+      --text: #1E1E4B;
+      --text-sub: #4B5563;
+      --white: #FFFFFF;
+      --font: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ========== NAV ========== */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      box-shadow: rgba(0,0,0,0.05) 0 2px 8px;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--primary); }
+
+    .btn-cta {
+      display: inline-block;
+      background: var(--cta);
+      color: var(--white);
+      border: none;
+      border-radius: 50px;
+      padding: 10px 24px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+
+    .btn-cta:hover {
+      background: var(--cta-dark);
+      transform: translateY(-2px);
+      box-shadow: rgba(236,72,153,0.4) 0 8px 24px;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      background-image: url('images/hero.png');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,243,234,0.75);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: linear-gradient(90deg, #FF7A3D, #FF5500);
+      color: var(--white);
+      border-radius: 6px;
+      padding: 4px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: 0.05em;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2.5vw, 22px);
+      color: var(--text-sub);
+      margin-bottom: 40px;
+      font-weight: 500;
+    }
+
+    .btn-hero {
+      display: inline-block;
+      background: var(--cta);
+      color: var(--white);
+      border-radius: 50px;
+      padding: 16px 40px;
+      font-weight: 700;
+      font-size: 18px;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+
+    .btn-hero:hover {
+      background: var(--cta-dark);
+      transform: translateY(-2px);
+      box-shadow: rgba(236,72,153,0.4) 0 8px 24px;
+    }
+
+    /* ========== GALLERY ========== */
+    .gallery {
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .gallery-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .gallery-header h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      color: var(--text);
+      display: inline-block;
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .gallery-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #FF7A3D, #FF5500);
+      border-radius: 2px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 1199px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 767px)  { .gallery-grid { grid-template-columns: 1fr; } }
+
+    /* ========== CARD ========== */
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: rgba(0,0,0,0.06) 0 4px 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: opacity 0.5s, transform 0.5s, box-shadow 0.25s;
+      opacity: 0;
+      transform: translateY(20px);
+      border: 1px solid #F3F4F6;
+    }
+
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: rgba(0,0,0,0.12) 0 8px 32px;
+    }
+
+    .card.visible:hover {
+      transform: translateY(-4px);
+    }
+
+    .card-image-wrap {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+    }
+
+    .card-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s;
+    }
+
+    .card:hover .card-image-wrap img {
+      transform: scale(1.04);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: linear-gradient(90deg, #FF7A3D, #FF5500);
+      color: var(--white);
+      border-radius: 6px;
+      padding: 4px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .card-body {
+      padding: 20px 24px 24px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.65;
+    }
+
+    /* ========== LIGHTBOX ========== */
+    .lightbox-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .lightbox-overlay.open {
+      display: flex;
+    }
+
+    .lightbox-modal {
+      background: var(--white);
+      border-radius: 16px;
+      max-width: 900px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      box-shadow: rgba(0,0,0,0.2) 0 20px 60px;
+      animation: lb-in 0.2s ease;
+    }
+
+    @keyframes lb-in {
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .lightbox-modal img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16/9;
+      object-fit: contain;
+      background: #111;
+    }
+
+    .lightbox-info {
+      padding: 20px 24px;
+    }
+
+    .lightbox-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .lightbox-desc {
+      font-size: 14px;
+      color: var(--text-sub);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      transition: background 0.2s;
+    }
+
+    .lightbox-close:hover { background: rgba(0,0,0,0.8); }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-nav:hover { background: rgba(0,0,0,0.75); }
+    .lightbox-prev { left: 12px; }
+    .lightbox-next { right: 12px; }
+
+    /* ========== FOOTER ========== */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">AI<span>Portfolio</span></a>
+      <ul class="nav-links">
+        <li><a href="#gallery">作品</a></li>
+        <li>
+          <a href="https://github.com/snao1225" target="_blank" rel="noopener" class="btn-cta">GitHubで見る</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-label">AI開発</div>
+      <h1>AI開発ポートフォリオ</h1>
+      <p class="hero-sub">AIで創る、次の一手</p>
+      <a href="#gallery" class="btn-hero">作品を見る &gt;</a>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="gallery-header">
+      <h2>制作実績</h2>
+    </div>
+    <div class="gallery-grid">
+
+      <div class="card" data-index="0">
+        <div class="card-image-wrap">
+          <img src="images/image-01.png" alt="シューティングゲーム — プレイ中" loading="lazy">
+          <span class="card-badge">AI開発</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">シューティングゲーム — プレイ中</div>
+          <p class="card-desc">AIを活用して開発した2Dシューティングゲームのゲームプレイ画面。プレイヤー操作・弾幕・スコア表示を実装。</p>
+        </div>
+      </div>
+
+      <div class="card" data-index="1">
+        <div class="card-image-wrap">
+          <img src="images/image-02.png" alt="シューティングゲーム — ゲームオーバー" loading="lazy">
+          <span class="card-badge">AI開発</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">シューティングゲーム — ゲームオーバー</div>
+          <p class="card-desc">ゲームオーバー時の画面遷移。スコア集計と再スタート導線をUI設計。</p>
+        </div>
+      </div>
+
+      <div class="card" data-index="2">
+        <div class="card-image-wrap">
+          <img src="images/image-03.png" alt="シューティングゲーム — タイトル画面" loading="lazy">
+          <span class="card-badge">AI開発</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">シューティングゲーム — タイトル画面</div>
+          <p class="card-desc">ゲームの起動時に表示されるタイトル画面。ゲームタイトルとスタートUIを配置。</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 AI開発ポートフォリオ &mdash; <a href="https://github.com/snao1225/ai-portfolio-09" target="_blank" rel="noopener">GitHub</a></p>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true">
+    <div class="lightbox-modal">
+      <button class="lightbox-close" id="lb-close" aria-label="閉じる">&times;</button>
+      <button class="lightbox-nav lightbox-prev" id="lb-prev" aria-label="前の画像">&#8249;</button>
+      <button class="lightbox-nav lightbox-next" id="lb-next" aria-label="次の画像">&#8250;</button>
+      <img id="lb-img" src="" alt="">
+      <div class="lightbox-info">
+        <div class="lightbox-title" id="lb-title"></div>
+        <p class="lightbox-desc" id="lb-desc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---- Lightbox data ----
+    const cards = [
+      { src: 'images/image-01.png', title: 'シューティングゲーム — プレイ中',     desc: 'AIを活用して開発した2Dシューティングゲームのゲームプレイ画面。プレイヤー操作・弾幕・スコア表示を実装。' },
+      { src: 'images/image-02.png', title: 'シューティングゲーム — ゲームオーバー', desc: 'ゲームオーバー時の画面遷移。スコア集計と再スタート導線をUI設計。' },
+      { src: 'images/image-03.png', title: 'シューティングゲーム — タイトル画面', desc: 'ゲームの起動時に表示されるタイトル画面。ゲームタイトルとスタートUIを配置。' }
+    ];
+
+    let current = 0;
+
+    const overlay  = document.getElementById('lightbox');
+    const lbImg    = document.getElementById('lb-img');
+    const lbTitle  = document.getElementById('lb-title');
+    const lbDesc   = document.getElementById('lb-desc');
+    const lbClose  = document.getElementById('lb-close');
+    const lbPrev   = document.getElementById('lb-prev');
+    const lbNext   = document.getElementById('lb-next');
+
+    function openLightbox(index) {
+      current = index;
+      const d = cards[current];
+      lbImg.src   = d.src;
+      lbImg.alt   = d.title;
+      lbTitle.textContent = d.title;
+      lbDesc.textContent  = d.desc;
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function navigate(dir) {
+      current = (current + dir + cards.length) % cards.length;
+      openLightbox(current);
+    }
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => openLightbox(+card.dataset.index));
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', (e) => { e.stopPropagation(); navigate(-1); });
+    lbNext.addEventListener('click', (e) => { e.stopPropagation(); navigate(1); });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!overlay.classList.contains('open')) return;
+      if (e.key === 'Escape')      closeLightbox();
+      if (e.key === 'ArrowLeft')   navigate(-1);
+      if (e.key === 'ArrowRight')  navigate(1);
+    });
+
+    // ---- Intersection Observer ----
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          entry.target.style.transitionDelay = (i * 0.1) + 's';
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.card').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
