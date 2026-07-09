@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI開発ポートフォリオ</title>
-  <meta name="description" content="AIを活用して開発したシューティングゲームの制作実績をまとめたポートフォリオサイト。">
+  <meta name="description" content="AIを活用して開発した2Dシューティングゲームの制作実績をスクリーンショット付きで紹介するAI開発ポートフォリオサイト。プレイ画面・タイトル画面・ゲームオーバー画面を掲載。">
   <meta property="og:title" content="AI開発ポートフォリオ">
   <meta property="og:description" content="AIを活用して開発したシューティングゲームの制作実績をまとめたポートフォリオサイト。">
   <meta property="og:type" content="website">
   <meta property="og:image" content="images/hero.jpg">
+  <link rel="canonical" href="https://snao1225.github.io/ai-portfolio-09/">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'unsafe-inline'; script-src 'self' 'unsafe-inline'">
   <style>
     :root {
       --primary: #FF7A3D;
@@ -395,9 +397,30 @@
       color: var(--primary);
       text-decoration: none;
     }
+
+    /* ========== SKIP LINK ========== */
+    .skip-link {
+      position: absolute;
+      top: -48px;
+      left: 8px;
+      z-index: 1000;
+      background: var(--text);
+      color: var(--white);
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: 8px;
+    }
   </style>
 </head>
 <body>
+
+  <a href="#gallery" class="skip-link">本文（制作実績）へスキップ</a>
 
   <!-- NAV -->
   <nav>
@@ -528,6 +551,7 @@
     }
 
     function navigate(dir) {
+      if (cards.length === 0) return;
       current = (current + dir + cards.length) % cards.length;
       openLightbox(current);
     }
