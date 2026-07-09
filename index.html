@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI開発ポートフォリオ</title>
-  <meta name="description" content="AIを活用して開発したシューティングゲームの制作実績をまとめたポートフォリオサイト。">
+  <meta name="description" content="AIを活用して開発した2Dシューティングゲームの制作実績をスクリーンショット付きで紹介するAI開発ポートフォリオサイト。プレイ画面・タイトル画面・ゲームオーバー画面を掲載。">
   <meta property="og:title" content="AI開発ポートフォリオ">
-  <meta property="og:description" content="AIを活用して開発したシューティングゲームの制作実績をまとめたポートフォリオサイト。">
+  <meta property="og:description" content="AIを活用して開発した2Dシューティングゲームの制作実績をスクリーンショット付きで紹介するAI開発ポートフォリオサイト。プレイ画面・タイトル画面・ゲームオーバー画面を掲載。">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="images/hero.jpg">
+  <meta property="og:image" content="https://snao1225.github.io/ai-portfolio-09/images/hero.jpg">
+  <link rel="canonical" href="https://snao1225.github.io/ai-portfolio-09/">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'unsafe-inline'; script-src 'self' 'unsafe-inline'">
   <style>
     :root {
       --primary: #FF7A3D;
@@ -70,7 +72,7 @@
       list-style: none;
     }
 
-    .nav-links a {
+    .nav-links a:not(.btn) {
       color: var(--text);
       text-decoration: none;
       font-weight: 500;
@@ -78,26 +80,28 @@
       transition: color 0.25s;
     }
 
-    .nav-links a:hover { color: var(--primary); }
+    .nav-links a:not(.btn):hover { color: var(--primary); }
 
-    .btn-cta {
+    .btn {
       display: inline-block;
-      background: var(--cta);
+      background: var(--cta-dark);
       color: var(--white);
       border: none;
       border-radius: 50px;
-      padding: 10px 24px;
       font-weight: 700;
-      font-size: 14px;
       text-decoration: none;
       cursor: pointer;
-      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+      transition: transform 0.25s, box-shadow 0.25s;
     }
 
-    .btn-cta:hover {
-      background: var(--cta-dark);
+    .btn:hover {
       transform: translateY(-2px);
       box-shadow: rgba(236,72,153,0.4) 0 8px 24px;
+    }
+
+    .btn-cta {
+      padding: 10px 24px;
+      font-size: 14px;
     }
 
     /* ========== HERO ========== */
@@ -155,21 +159,8 @@
     }
 
     .btn-hero {
-      display: inline-block;
-      background: var(--cta);
-      color: var(--white);
-      border-radius: 50px;
       padding: 16px 40px;
-      font-weight: 700;
       font-size: 18px;
-      text-decoration: none;
-      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
-    }
-
-    .btn-hero:hover {
-      background: var(--cta-dark);
-      transform: translateY(-2px);
-      box-shadow: rgba(236,72,153,0.4) 0 8px 24px;
     }
 
     /* ========== GALLERY ========== */
@@ -245,6 +236,11 @@
       position: relative;
       aspect-ratio: 16/9;
       overflow: hidden;
+      background: var(--bg-hero);
+    }
+
+    img.img-error {
+      visibility: hidden;
     }
 
     .card-image-wrap img {
@@ -401,9 +397,30 @@
       color: var(--primary);
       text-decoration: none;
     }
+
+    /* ========== SKIP LINK ========== */
+    .skip-link {
+      position: absolute;
+      top: -48px;
+      left: 8px;
+      z-index: 1000;
+      background: var(--text);
+      color: var(--white);
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: top 0.2s;
+    }
+
+    .skip-link:focus {
+      top: 8px;
+    }
   </style>
 </head>
 <body>
+
+  <a href="#gallery" class="skip-link">本文（制作実績）へスキップ</a>
 
   <!-- NAV -->
   <nav>
@@ -412,7 +429,7 @@
       <ul class="nav-links">
         <li><a href="#gallery">作品</a></li>
         <li>
-          <a href="https://github.com/snao1225" target="_blank" rel="noopener noreferrer" class="btn-cta">GitHubで見る</a>
+          <a href="https://github.com/snao1225" target="_blank" rel="noopener noreferrer" class="btn btn-cta">GitHubで見る</a>
         </li>
       </ul>
     </div>
@@ -425,46 +442,46 @@
       <div class="hero-label">AI開発</div>
       <h1>AI開発ポートフォリオ</h1>
       <p class="hero-sub">AIで創る、次の一手</p>
-      <a href="#gallery" class="btn-hero">作品を見る &gt;</a>
+      <a href="#gallery" class="btn btn-hero">作品を見る &gt;</a>
     </div>
   </section>
 
   <!-- GALLERY -->
-  <section class="gallery" id="gallery">
+  <section class="gallery" id="gallery" tabindex="-1">
     <div class="gallery-header">
       <h2>制作実績</h2>
     </div>
     <div class="gallery-grid">
 
-      <div class="card" data-index="0" role="button" tabindex="0">
+      <div class="card" data-index="0" role="button" tabindex="0" aria-label="シューティングゲーム — プレイ中の詳細を見る">
         <div class="card-image-wrap">
-          <img src="images/image-01.png" alt="シューティングゲーム — プレイ中" loading="lazy">
-          <span class="card-badge">AI開発</span>
+          <img src="images/image-01.png" alt="シューティングゲーム — プレイ中" loading="lazy" onerror="this.classList.add('img-error')">
+          <span class="card-badge" aria-hidden="true">AI開発</span>
         </div>
         <div class="card-body">
-          <div class="card-title">シューティングゲーム — プレイ中</div>
+          <h3 class="card-title">シューティングゲーム — プレイ中</h3>
           <p class="card-desc">AIを活用して開発した2Dシューティングゲームのゲームプレイ画面。プレイヤー操作・弾幕・スコア表示を実装。</p>
         </div>
       </div>
 
-      <div class="card" data-index="1" role="button" tabindex="0">
+      <div class="card" data-index="1" role="button" tabindex="0" aria-label="シューティングゲーム — ゲームオーバーの詳細を見る">
         <div class="card-image-wrap">
-          <img src="images/image-02.png" alt="シューティングゲーム — ゲームオーバー" loading="lazy">
-          <span class="card-badge">AI開発</span>
+          <img src="images/image-02.png" alt="シューティングゲーム — ゲームオーバー" loading="lazy" onerror="this.classList.add('img-error')">
+          <span class="card-badge" aria-hidden="true">AI開発</span>
         </div>
         <div class="card-body">
-          <div class="card-title">シューティングゲーム — ゲームオーバー</div>
+          <h3 class="card-title">シューティングゲーム — ゲームオーバー</h3>
           <p class="card-desc">ゲームオーバー時の画面遷移。スコア集計と再スタート導線をUI設計。</p>
         </div>
       </div>
 
-      <div class="card" data-index="2" role="button" tabindex="0">
+      <div class="card" data-index="2" role="button" tabindex="0" aria-label="シューティングゲーム — タイトル画面の詳細を見る">
         <div class="card-image-wrap">
-          <img src="images/image-03.png" alt="シューティングゲーム — タイトル画面" loading="lazy">
-          <span class="card-badge">AI開発</span>
+          <img src="images/image-03.png" alt="シューティングゲーム — タイトル画面" loading="lazy" onerror="this.classList.add('img-error')">
+          <span class="card-badge" aria-hidden="true">AI開発</span>
         </div>
         <div class="card-body">
-          <div class="card-title">シューティングゲーム — タイトル画面</div>
+          <h3 class="card-title">シューティングゲーム — タイトル画面</h3>
           <p class="card-desc">ゲームの起動時に表示されるタイトル画面。ゲームタイトルとスタートUIを配置。</p>
         </div>
       </div>
@@ -483,7 +500,7 @@
       <button class="lightbox-close" id="lb-close" aria-label="閉じる">&times;</button>
       <button class="lightbox-nav lightbox-prev" id="lb-prev" aria-label="前の画像">&#8249;</button>
       <button class="lightbox-nav lightbox-next" id="lb-next" aria-label="次の画像">&#8250;</button>
-      <img id="lb-img" src="" alt="">
+      <img id="lb-img" src="" alt="" onerror="this.classList.add('img-error')">
       <div class="lightbox-info">
         <div class="lightbox-title" id="lb-title"></div>
         <p class="lightbox-desc" id="lb-desc"></p>
@@ -493,11 +510,13 @@
 
   <script>
     // ---- Lightbox data (derived from the gallery DOM — single source of truth) ----
+    // Uses optional chaining so a malformed card (missing image/title/desc) can't
+    // throw and take down the rest of this script (incl. the observer setup below).
     const cardEls = Array.from(document.querySelectorAll('.card'));
     const cards = cardEls.map(card => ({
-      src: card.querySelector('img').getAttribute('src'),
-      title: card.querySelector('.card-title').textContent,
-      desc: card.querySelector('.card-desc').textContent
+      src: card.querySelector('img')?.getAttribute('src') ?? '',
+      title: card.querySelector('.card-title')?.textContent ?? '',
+      desc: card.querySelector('.card-desc')?.textContent ?? ''
     }));
 
     let current = 0;
@@ -514,6 +533,7 @@
     function openLightbox(index) {
       current = index;
       const d = cards[current];
+      lbImg.classList.remove('img-error');
       lbImg.src   = d.src;
       lbImg.alt   = d.title;
       lbTitle.textContent = d.title;
@@ -531,6 +551,7 @@
     }
 
     function navigate(dir) {
+      if (cards.length === 0) return;
       current = (current + dir + cards.length) % cards.length;
       openLightbox(current);
     }
